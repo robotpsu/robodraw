@@ -108,9 +108,10 @@ void move_to(int x, int y) {
   /* The arm can operate in the positive Y half-plane only */
   if (y < Y_MIN) y = Y_MIN;
 
-  r = (float)x; r2 = (float)y;
-  r2 = r * r + r2 * r2;  /* squared distance */
-  r  = sqrt(r2);         /* distance */
+  /* Calculate a position vector length */
+  r2 = (float)y; r = (float)x;
+  r2 = r * r + r2 * r2;  /* squared length */
+  r  = sqrt(r2);         /* length */
 
   if (r > R_MAX) {
     /* The arm cannot reach the specified point */
