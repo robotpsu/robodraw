@@ -101,7 +101,7 @@ void beep_fail() {
  * Arguments: x, y - Cartesian coordinates (absolute)
  */
 void move_to(int x, int y) {
-  /* The arm can operate in the right half-plane only */
+  /* The arm can operate in the positive Y half-plane only */
   if (y < 0) y = 0;
 
   float r = (float)x, r2 = (float)y;
