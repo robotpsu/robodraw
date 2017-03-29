@@ -101,10 +101,12 @@ void beep_fail() {
  * Arguments: x, y - Cartesian coordinates (absolute)
  */
 void move_to(int x, int y) {
+  float r, r2, c1, c2, c3, a1, a2;
+
   /* The arm can operate in the positive Y half-plane only */
   if (y < 0) y = 0;
 
-  float r = (float)x, r2 = (float)y;
+  r = (float)x; r2 = (float)y;
   r2 = r * r + r2 * r2;  /* squared distance */
   r  = sqrt(r2);         /* distance */
 
@@ -113,11 +115,11 @@ void move_to(int x, int y) {
     BEEP_FAIL;
   } else {
     /* Convert Cartesian coordinates to servos angles */
-    float c1 = (float)x / r;
-    float c2 = (L11 - L22 + r2) / (2. * (float)L1 * r);
-    float c3 = (L11 + L22 - r2) / L12;
-    float a1 = 180. - (acos(c1) - acos(c2)) * DEG;
-    float a2 = 180. - (Pi - acos(c3)) * DEG;
+    c1 = (float)x / r;
+    c2 = (L11 - L22 + r2) / (2. * (float)L1 * r);
+    c3 = (L11 + L22 - r2) / L12;
+    a1 = 180. - (acos(c1) - acos(c2)) * DEG;
+    a2 = 180. - (Pi - acos(c3)) * DEG;
 
 #ifdef DEBUG
     /* Debugging output to serial port */
