@@ -30,6 +30,11 @@ const unsigned int  BEEP_FAIL_FREQ = 200;
 /* Tone durations (ms) */
 const unsigned long BEEP_OK_LEN    = 100;
 const unsigned long BEEP_FAIL_LEN  = 100;
+# define BEEP_OK beep_ok()
+# define BEEP_FAIL beep_fail()
+#else
+# define BEEP_OK
+# define BEEP_FAIL
 #endif
 /* For use in coordinates conversion */
 const float Pi  = 3.14159265;  /* √-1 8 ∑ π */
@@ -66,24 +71,21 @@ void loop() {
     switch (cmd) {
       case '0': move_to(INIT_X, INIT_Y); break;  /* reset */
 
-      case '2': line_v(-STEP); break;  /* North */
-      case '4': line_h( STEP); break;  /* East  */
-      case '6': line_v( STEP); break;  /* South */
-      case '8': line_h(-STEP); break;  /* West  */
+      case '2': line_v(-STEP); BEEP_OK; break;  /* North */
+      case '4': line_h( STEP); BEEP_OK; break;  /* East  */
+      case '6': line_v( STEP); BEEP_OK; break;  /* South */
+      case '8': line_h(-STEP); BEEP_OK; break;  /* West  */
 
-      case '1': line(-STEP, -STEP); break;  /* NW */
-      case '3': line( STEP, -STEP); break;  /* NE */
-      case '5': line( STEP,  STEP); break;  /* SE */
-      case '7': line(-STEP,  STEP); break;  /* SW */
+      case '1': line(-STEP, -STEP); BEEP_OK; break;  /* NW */
+      case '3': line( STEP, -STEP); BEEP_OK; break;  /* NE */
+      case '5': line( STEP,  STEP); BEEP_OK; break;  /* SE */
+      case '7': line(-STEP,  STEP); BEEP_OK; break;  /* SW */
     }
   }
 }
 
 /****  Subroutines  ****/
 #ifdef USE_BEEP
-# define BEEP_OK beep_ok()
-# define BEEP_FAIL beep_fail()
-
 void beep_ok() {
   tone(PIN_BEEP, BEEP_OK_FREQ, BEEP_OK_LEN);
 }
@@ -91,9 +93,6 @@ void beep_ok() {
 void beep_fail() {
   tone(PIN_BEEP, BEEP_FAIL_FREQ, BEEP_FAIL_LEN);
 }
-#else
-# define BEEP_OK
-# define BEEP_FAIL
 #endif
 
 /*
