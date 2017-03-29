@@ -35,9 +35,10 @@ const unsigned long BEEP_FAIL_LEN  = 100;
 const float Pi  = 3.14159265;  /* √-1 8 ∑ π */
 const float DEG = 180. / Pi;   /* radians to degrees conversion */
 /* Some optimization */
-const float L11 = (float)(L1 * L1);
-const float L12 = (float)(L1 * L2) * 2.;
-const float L22 = (float)(L2 * L2);
+const float R_MAX = (float)(L1 + L2 - STEP);
+const float L11   = (float)(L1 * L1);
+const float L12   = (float)(L1 * L2) * 2.;
+const float L22   = (float)(L2 * L2);
 
 /****  Global variables  ****/
 Servo Servo1, Servo2;  /* servos */
@@ -108,7 +109,7 @@ void move_to(int x, int y) {
   r2 = r * r + r2 * r2;  /* squared distance */
   r  = sqrt(r2);         /* distance */
 
-  if (r > (float)(L1 + L2 - STEP)) {
+  if (r > R_MAX) {
     /* The arm cannot reach the specified point */
     BEEP_FAIL;
   } else {
