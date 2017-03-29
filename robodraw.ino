@@ -24,6 +24,12 @@ const unsigned PIN_SERVO1 = 10;
 const unsigned PIN_SERVO2 =  9;
 #ifdef USE_BEEP
 const unsigned PIN_BEEP = 7;
+/* Tone frequences (Hz) */
+const unsigned int  BEEP_OK_FREQ   = 440; 
+const unsigned int  BEEP_FAIL_FREQ = 200;
+/* Tone durations (ms) */
+const unsigned long BEEP_OK_LEN    = 100;
+const unsigned long BEEP_FAIL_LEN  = 100;
 #endif
 /* For use in coordinates conversion */
 const float Pi  = 3.14159265;  /* √-1 8 ∑ π */
@@ -78,13 +84,11 @@ void loop() {
 # define BEEP_FAIL beep_fail()
 
 void beep_ok() {
-  tone(PIN_BEEP, 440, 200);
+  tone(PIN_BEEP, BEEP_OK_FREQ, BEEP_OK_LEN);
 }
 
 void beep_fail() {
-  tone(PIN_BEEP, 1200, 100);
-  delay(100);
-  tone(PIN_BEEP, 1200, 100);
+  tone(PIN_BEEP, BEEP_FAIL_FREQ, BEEP_FAIL_LEN);
 }
 #else
 # define BEEP_OK
