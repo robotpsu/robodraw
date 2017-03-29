@@ -17,7 +17,7 @@ const unsigned long DELAY_MOVE = 100;
 /* Arms length (mm) */
 const unsigned L1 = 110;
 const unsigned L2 = 100;
-/* Serial port data rate */
+/* Serial port data rate (bps) */
 const long SERIAL_SPEED = 9600;
 /* Shield pins */
 const unsigned PIN_SERVO1 = 10;
