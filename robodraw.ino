@@ -122,7 +122,7 @@ void move_to(int x, int y) {
     a2 = 180. - (Pi - acos(c3)) * DEG;
 
 #ifdef DEBUG
-    /* Debugging output to serial port */
+    /* Output debug info to serial port */
     Serial.print(x);
     Serial.print("; ");
     Serial.print(y);
