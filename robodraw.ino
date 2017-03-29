@@ -8,8 +8,10 @@
 
 /****  Constants  ****/
 /* Initial position in Cartesian coordinates (mm) */
-const int INIT_X =  0;
-const int INIT_Y = 20;
+const int X_INIT =  0;
+const int Y_INIT = 20;
+/* Minimal available Y coordinate */
+const int Y_MIN = 10;
 /* Movement step (mm) */
 const int STEP = 8;
 /* Movement delay (ms) */
@@ -59,7 +61,7 @@ void setup() {
   Servo2.attach(PIN_SERVO2);
 
   /* Move to initial position */
-  move_to(INIT_X, INIT_Y);
+  move_to(X_INIT, Y_INIT);
 }
 
 /****  Main loop  ****/
@@ -69,7 +71,7 @@ void loop() {
   if (Serial.available() > 0) {
     cmd = Serial.read();
     switch (cmd) {
-      case '0': move_to(INIT_X, INIT_Y); break;  /* reset */
+      case '0': move_to(X_INIT, Y_INIT); break;  /* reset */
 
       case '2': line_v(-STEP); BEEP_OK; break;  /* North */
       case '4': line_h( STEP); BEEP_OK; break;  /* East  */
@@ -104,7 +106,7 @@ void move_to(int x, int y) {
   float r, r2, c1, c2, c3, a1, a2;
 
   /* The arm can operate in the positive Y half-plane only */
-  if (y < 0) y = 0;
+  if (y < Y_MIN) y = Y_MIN;
 
   r = (float)x; r2 = (float)y;
   r2 = r * r + r2 * r2;  /* squared distance */
